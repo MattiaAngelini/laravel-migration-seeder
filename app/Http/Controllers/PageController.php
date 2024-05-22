@@ -7,18 +7,10 @@ use App\Models\Train;
 
 class PageController extends Controller
 {
-    public function index() {
-        return view('home');
-        $trains = Train::all();
-        
-
-        $data= [
-            'trains' => $trains,
-        ];
-
-        return view('home', $data);
-       
+    public function index()
+    {
+        $today = date('Y-m-d');
+        $trains = Train::whereDate('orario_di_partenza', $today)->get();
+        return view('home', compact('trains'));
     }
 }
-
-
